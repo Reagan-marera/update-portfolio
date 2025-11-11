@@ -17,7 +17,7 @@
 
         :root {
             --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
+            --secondary-color:green;
             --accent-color: #ff006e;
             --text-color: #1a1a1a;
             --light-bg: #f8f9fa;
@@ -58,7 +58,7 @@
             text-align: center;
             max-width: 700px;
             margin: 0 auto 2rem;
-            color:black;
+            color: black;
             font-size: 1.1rem;
             line-height: 1.7;
         }
@@ -475,7 +475,7 @@
 
         /* Footer */
         .footer {
-            background-color: #2d3748;
+            background-color:blueviolet;
             color: white;
             padding: 2.5rem 1rem 1rem;
         }
@@ -528,6 +528,7 @@
 
         .footer__form {
             width: 100%;
+            position: relative;
         }
 
         .input__row {
@@ -544,6 +545,7 @@
             border-radius: 5px;
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
         }
 
         textarea {
@@ -616,6 +618,110 @@
 
         .auto-scroll-indicator.paused i {
             color: #ffcc00;
+        }
+
+        /* Contact Form Animations */
+        .emoji-container {
+            position: absolute;
+            top: -60px;
+            right: 0;
+            font-size: 2.5rem;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        .emoji {
+            display: inline-block;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        .emoji.jumping {
+            animation: jump 0.8s ease infinite;
+        }
+
+        .emoji.blushing {
+            animation: blush 1s ease infinite;
+        }
+
+        .emoji.spinning {
+            animation: spin 2s linear infinite;
+        }
+
+        .emoji.waving {
+            animation: wave 1s ease infinite;
+        }
+
+        .emoji.heartbeat {
+            animation: heartbeat 1.2s ease infinite;
+        }
+
+        @keyframes jump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes blush {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+        }
+
+        .form-success {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-highlight {
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2) !important;
+        }
+
+        .typing-indicator {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+            text-align: center;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .typing-indicator.show {
+            opacity: 1;
         }
 
         /* Media Queries */
@@ -1006,7 +1112,7 @@
                 <p>0725 141 895</p>
             </div>
             <div class="reference__item">
-                <h4>Brown Libiga</h4>
+                <h4>Brown Lihiga</h4>
                 <p>Lecturer, Africa Aviation Management — Software Engineering Department</p>
                 <p>brownmessi30@gmail.com | 0715 705 838</p>
             </div>
@@ -1026,23 +1132,38 @@
                     <p>
                         Software Engineer |Frontend Developer| Backend Developer | Data Enthusiast
                     </p>
+                    <div class="contact-info">
+                        <p><i class="ri-phone-line"></i> +254 708 183 593</p>
+                        <p><i class="ri-mail-line"></i> marierareagan@gmail.com</p>
+                        <p><i class="ri-map-pin-line"></i> Nairobi, Kenya</p>
+                    </div>
                     <div class="footer__socials">
                         <a href="https://www.linkedin.com/in/reagan-mariera-360600317/"><i class="ri-linkedin-fill"></i></a>
                         <a href="https://github.com/Reagan-marera"><i class="ri-github-fill"></i></a>
                         <a href="https://www.instagram.com/rea.gan._/"><i class="ri-instagram-line"></i></a>
+                        <a href="https://wa.me/254708183593"><i class="ri-whatsapp-line"></i></a>
                     </div>
                 </div>
                 <div class="footer__form">
-                    <form id="contactForm">
+                    <div class="emoji-container" id="emojiContainer">
+                        <div class="emoji" id="mainEmoji">👋</div>
+                    </div>
+                    <form id="contactForm" action="https://formspree.io/f/xrbrganr" method="POST">
                         <div class="input__row">
                             <input type="text" id="name" name="name" placeholder="Your Name" required />
                             <input type="email" id="email" name="email" placeholder="Your Email" required />
                         </div>
                         <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        <div class="typing-indicator" id="typingIndicator">I'm excited to hear from you! 💫</div>
                         <button type="submit" class="btn btn__primary">
                             <i class="ri-send-plane-fill"></i> Send Message
                         </button>
                     </form>
+                    <div class="form-success" id="formSuccess">
+                        <i class="ri-checkbox-circle-fill"></i>
+                        <strong>Message sent successfully!</strong>
+                        <p>I'll get back to you within 24 hours. Thank you! 🎉</p>
+                    </div>
                 </div>
             </div>
             <div class="footer__bar">
@@ -1217,40 +1338,180 @@
         document.addEventListener('touchmove', stopAutoScroll);
         document.addEventListener('keydown', stopAutoScroll);
 
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', async function (e) {
-            e.preventDefault(); // Prevent the default form submission
+        // Enhanced Contact Form with Animations
+        const contactForm = document.getElementById('contactForm');
+        const emojiContainer = document.getElementById('emojiContainer');
+        const mainEmoji = document.getElementById('mainEmoji');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const formSuccess = document.getElementById('formSuccess');
+        
+        // Emoji states and animations
+        const emojiStates = {
+            idle: ['👋', '😊', '🤔', '😄'],
+            typing: ['😊', '🤔', '😌', '🙂'],
+            focused: ['😮', '👀', '🤩', '😲'],
+            success: ['🎉', '✨', '🥳', '💫'],
+            error: ['😅', '🙈', '😬', '🤭']
+        };
+        
+        let currentEmojiIndex = 0;
+        let emojiInterval;
+        
+        // Form field elements
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        
+        // Start with waving animation
+        mainEmoji.classList.add('waving');
+        
+        // Function to change emoji with animation
+        function changeEmoji(newEmoji, animation = '') {
+            mainEmoji.classList.remove('waving', 'jumping', 'blushing', 'spinning', 'heartbeat');
+            mainEmoji.textContent = newEmoji;
+            if (animation) {
+                mainEmoji.classList.add(animation);
+            }
+        }
+        
+        // Function to cycle through emojis
+        function cycleEmojis(emojis, animation = '', interval = 2000) {
+            clearInterval(emojiInterval);
+            emojiInterval = setInterval(() => {
+                currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
+                changeEmoji(emojis[currentEmojiIndex], animation);
+            }, interval);
+        }
+        
+        // Start with idle state
+        cycleEmojis(emojiStates.idle, 'waving', 3000);
+        
+        // Input focus events
+        nameInput.addEventListener('focus', () => {
+            cycleEmojis(emojiStates.focused, 'jumping', 1500);
+            nameInput.classList.add('input-highlight');
+            typingIndicator.textContent = "What's your name? 😊";
+            typingIndicator.classList.add('show');
+        });
+        
+        emailInput.addEventListener('focus', () => {
+            cycleEmojis(emojiStates.focused, 'blushing', 1500);
+            emailInput.classList.add('input-highlight');
+            typingIndicator.textContent = "Can't wait to reply! 📧";
+            typingIndicator.classList.add('show');
+        });
+        
+        messageInput.addEventListener('focus', () => {
+            cycleEmojis(emojiStates.typing, 'heartbeat', 2000);
+            messageInput.classList.add('input-highlight');
+            typingIndicator.textContent = "Tell me everything! ✨";
+            typingIndicator.classList.add('show');
+        });
+        
+        // Input blur events
+        [nameInput, emailInput, messageInput].forEach(input => {
+            input.addEventListener('blur', () => {
+                input.classList.remove('input-highlight');
+                if (!nameInput.value && !emailInput.value && !messageInput.value) {
+                    typingIndicator.classList.remove('show');
+                    cycleEmojis(emojiStates.idle, 'waving', 3000);
+                }
+            });
+        });
+        
+        // Input typing events
+        messageInput.addEventListener('input', () => {
+            const length = messageInput.value.length;
+            if (length > 0 && length < 10) {
+                typingIndicator.textContent = "Keep going! 🚀";
+            } else if (length >= 10 && length < 30) {
+                typingIndicator.textContent = "Great details! 📝";
+            } else if (length >= 30) {
+                typingIndicator.textContent = "Amazing! Can't wait to read! 🤩";
+            }
+        });
+        
+        // Form submission
+        contactForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
             
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-        
-            const data = {
-                name: name,
-                email: email,
-                message: message
-            };
-        
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="ri-loader-4-line"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Success animation
+            clearInterval(emojiInterval);
+            changeEmoji('🚀', 'jumping');
+            
             try {
-                const response = await fetch('https://back-1-hpvn.onrender.com/contact', {
+                const formData = new FormData(this);
+                
+                const response = await fetch(this.action, {
                     method: 'POST',
+                    body: formData,
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
+                        'Accept': 'application/json'
+                    }
                 });
-        
+
                 if (response.ok) {
-                    alert('Message sent successfully!');
-                    // Optionally, reset form fields after success
-                    document.getElementById('contactForm').reset();
+                    // Success state
+                    cycleEmojis(emojiStates.success, 'heartbeat', 1000);
+                    formSuccess.classList.add('show');
+                    contactForm.reset();
+                    typingIndicator.classList.remove('show');
+                    
+                    // Reset after 5 seconds
+                    setTimeout(() => {
+                        formSuccess.classList.remove('show');
+                        cycleEmojis(emojiStates.idle, 'waving', 3000);
+                    }, 5000);
                 } else {
-                    alert('Failed to send message.');
+                    throw new Error('Form submission failed');
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to send message.');
+                console.error('Form submission error:', error);
+                // Error state
+                cycleEmojis(emojiStates.error, 'blushing', 1500);
+                alert('There was an issue sending your message. Please try again or contact me directly.');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
+        });
+
+        // Add hover effects to form inputs
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('mouseenter', () => {
+                if (document.activeElement !== input) {
+                    input.classList.add('input-highlight');
+                }
+            });
+            
+            input.addEventListener('mouseleave', () => {
+                if (document.activeElement !== input) {
+                    input.classList.remove('input-highlight');
+                }
+            });
+        });
+
+        // Add contact info styling
+        const contactInfo = document.querySelector('.contact-info');
+        if (contactInfo) {
+            contactInfo.style.margin = '1.5rem 0';
+        }
+        
+        const contactInfoParagraphs = document.querySelectorAll('.contact-info p');
+        contactInfoParagraphs.forEach(p => {
+            p.style.display = 'flex';
+            p.style.alignItems = 'center';
+            p.style.gap = '0.75rem';
+            p.style.marginBottom = '0.75rem';
         });
     </script>
 </body>
